@@ -29,6 +29,7 @@ public class UserMealsUtil {
 //        .toLocalTime();
     }
 
+    // Time complexity O(2N), where N - the size of the list mealList.
     public static List<UserMealWithExceed> getFilteredMealsWithExceeded(List<UserMeal> mealList,
                                                                         LocalTime startTime, LocalTime endTime,
                                                                         int caloriesPerDay) {
