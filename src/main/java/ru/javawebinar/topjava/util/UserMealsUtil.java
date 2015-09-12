@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,7 +33,7 @@ public class UserMealsUtil {
     public static List<UserMealWithExceed> getFilteredMealsWithExceeded(List<UserMeal> mealList,
                                                                         LocalTime startTime, LocalTime endTime,
                                                                         int caloriesPerDay) {
-        if (mealList == null) return new ArrayList<>();
+        if (mealList == null) return Collections.emptyList();
 
         Map<LocalDate, Integer> dateCaloriesMap = mealList
                 .stream()
