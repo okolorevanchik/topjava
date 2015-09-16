@@ -1,18 +1,29 @@
 package ru.javawebinar.topjava.model;
 
+import ru.javawebinar.topjava.util.UserMealsUtil;
+
 import java.time.LocalDateTime;
 
 public class UserMeal {
-    protected final LocalDateTime dateTime;
 
-    protected final String description;
+    protected Long id;
 
-    protected final int calories;
+    protected LocalDateTime dateTime;
 
-    public UserMeal(LocalDateTime dateTime, String description, int calories) {
+    protected String description;
+
+    protected int calories;
+
+    public UserMeal(Long id, LocalDateTime dateTime, String description, int calories) {
+        if (id == null) this.id = UserMealsUtil.generateId();
+        else this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public LocalDateTime getDateTime() {
@@ -26,4 +37,5 @@ public class UserMeal {
     public int getCalories() {
         return calories;
     }
+
 }

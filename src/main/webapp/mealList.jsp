@@ -1,4 +1,4 @@
-<%--@elvariable id="number" type="java.lang.Integer"--%>
+<jsp:useBean id="userMealWithExceeds" scope="request" type="java.util.List"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,35 +13,21 @@
             <c:choose>
                 <%--@elvariable id="flag_editor" type="java.lang.Boolean"--%>
                 <c:when test="${flag_editor == 'true'}">
-                <%--@elvariable id="description" type="java.lang.String"--%>
-                <%--@elvariable id="date" type="java.time.LocalDateTime"--%>
-                <%--@elvariable id="calories" type="java.lang.Integer"--%>
-                    <form method="POST" action="${pageContext.request.contextPath}/meals?number=${number}">
+                    <jsp:useBean id="userMeal" scope="request" type="ru.javawebinar.topjava.model.UserMeal"/>
+                    <form method="POST" action="${pageContext.request.contextPath}/meals?action=edit&id=${userMeal.id}">
                         <table>
                             <tbody>
                             <tr>
                                 <td>Date:</td>
-                                <td><label><input type="datetime-local" name="local_date" value="${date}"/></label></td>
+                                <td><label><input type="datetime-local" name="local_date" value="${userMeal.dateTime}"/></label></td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td><label><input type="text" name="description" value="${description}"/></label></td>
+                                <td><label><input type="text" name="description" value="${userMeal.description}"/></label></td>
                             </tr>
                             <tr>
                                 <td>Calories:</td>
-                                <td><label><input type="number" name="calories" value="${calories}"/></label></td>
-                            </tr>
-                            <tr>
-                                <td>Exceed:</td>
-                                <c:choose>
-                                    <%--@elvariable id="exceed" type="java.lang.Boolean"--%>
-                                    <c:when test="${exceed == 'true'}">
-                                        <td><label><input type="checkbox" name="exceed" checked /></label></td>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td><label><input type="checkbox" name="exceed" /></label></td>
-                                    </c:otherwise>
-                                </c:choose>
+                                <td><label><input type="number" name="calories" value="${userMeal.calories}"/></label></td>
                             </tr>
                             <tr>
                                 <td><input type="submit" value="Update" /></td>
@@ -52,24 +38,20 @@
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form method="POST" action="${pageContext.request.contextPath}/meals?new=true">
+                    <form method="POST" action="${pageContext.request.contextPath}/meals?action=add">
                         <table>
                             <tbody>
                             <tr>
                                 <td>Date:</td>
-                                <td><label><input type="datetime-local" name="local_date_new" /></label></td>
+                                <td><label><input type="datetime-local" name="local_date" /></label></td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td><label><input type="text" name="description_new"/></label></td>
+                                <td><label><input type="text" name="description"/></label></td>
                             </tr>
                             <tr>
                                 <td>Calories:</td>
-                                <td><label><input type="number" name="calories_new"/></label></td>
-                            </tr>
-                            <tr>
-                                <td>Exceed:</td>
-                                <td><label><input type="checkbox" name="exceed_new"/></label></td>
+                                <td><label><input type="number" name="calories"/></label></td>
                             </tr>
                             <tr>
                                 <td><input type="submit" value="Add" /></td>
@@ -93,8 +75,7 @@
     </tr>
     </thead>
     <tbody>
-    <%--@elvariable id="list" type="java.util.List"--%>
-    <c:forEach var="meal" items="${list}">
+    <c:forEach var="meal" items="${userMealWithExceeds}">
         <tr>
             <c:choose>
                 <c:when test="${meal.exceed == 'true'}">
@@ -112,8 +93,9 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td><a href="${pageContext.request.contextPath}/meals?edit_number=${list.indexOf(meal)}">Edit</a></td>
-                        <td><a href="${pageContext.request.contextPath}/meals?del_number=${list.indexOf(meal)}">Delete</a></td>
+                        <td><a href="${pageContext.request.contextPath}/meals?action=edit&id=${meal.id}">Edit</a></td>
+                        <td><a href="${pageContext.request.contextPath}/meals?action=delete&id=${meal.id}">Delete</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
