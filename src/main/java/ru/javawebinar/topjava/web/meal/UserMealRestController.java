@@ -19,10 +19,6 @@ public class UserMealRestController {
     @Autowired
     private UserMealService service;
 
-    public UserMeal save(UserMeal userMeal) {
-        return service.save(userMeal, LoggedUser.id());
-    }
-
     public boolean delete(int id, int userId) {
         try {
             service.delete(id, userId);
@@ -44,12 +40,12 @@ public class UserMealRestController {
         return service.getAll(userId);
     }
 
-    public boolean update(UserMeal userMeal) {
+    public UserMeal save(UserMeal userMeal, int userId) {
         try {
-            service.update(userMeal, LoggedUser.id());
-            return true;
+            userMeal.setUserId(LoggedUser.id());
+            return service.save(userMeal, userId);
         } catch (NotFoundException e) {
-            return false;
+            return null;
         }
     }
 

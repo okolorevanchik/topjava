@@ -6,7 +6,14 @@ package ru.javawebinar.topjava;
  */
 public class LoggedUser {
 
+    private static int id = 1;
+
     public static int id() {
-        return 1;
+        return id;
+    }
+
+    // not thread-safe
+    public static void setId(int currentId) {
+        id = currentId;
     }
 }

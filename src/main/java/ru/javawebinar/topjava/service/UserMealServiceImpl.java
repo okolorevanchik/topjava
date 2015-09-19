@@ -20,11 +20,6 @@ public class UserMealServiceImpl implements UserMealService {
     private UserMealRepository repository;
 
     @Override
-    public UserMeal save(UserMeal userMeal, int userId) {
-        return repository.save(userMeal, userId);
-    }
-
-    @Override
     public void delete(int id, int userId) throws NotFoundException {
         ExceptionUtil.check(repository.delete(id, userId), id);
     }
@@ -40,7 +35,7 @@ public class UserMealServiceImpl implements UserMealService {
     }
 
     @Override
-    public void update(UserMeal userMeal, int userId) throws NotFoundException {
-        ExceptionUtil.check(repository.save(userMeal, userId), userMeal.toString());
+    public UserMeal save(UserMeal userMeal, int userId) throws NotFoundException {
+        return ExceptionUtil.check(repository.save(userMeal, userId), userMeal.toString());
     }
 }

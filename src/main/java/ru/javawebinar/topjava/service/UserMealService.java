@@ -18,5 +18,4 @@ public interface UserMealService {
 
     Collection<UserMeal> getAll(int userId);
 
-    void update(UserMeal userMeal, int userId) throws NotFoundException;
 }

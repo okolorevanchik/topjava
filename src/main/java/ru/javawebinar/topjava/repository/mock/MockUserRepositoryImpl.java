@@ -2,11 +2,12 @@ package ru.javawebinar.topjava.repository.mock;
 
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.LoggerWrapper;
+import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * GKislin
@@ -15,6 +16,15 @@ import java.util.List;
 @Repository
 public class MockUserRepositoryImpl implements UserRepository {
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
+
+    private List<User> users = new CopyOnWriteArrayList<>();
+
+    {
+        users.add(new User(1, "user1", "user1@gmail.com", "12345", Role.ROLE_USER));
+        users.add(new User(2, "user2", "user2@gmail.com", "54321", Role.ROLE_USER));
+        users.add(new User(3, "admin1", "admin@gmail.com", "zYtYfcnjkmrjUkeg", Role.ROLE_USER, Role.ROLE_ADMIN));
+        users.add(new User(4, "user3", "user3@gmail.com", "123456", Role.ROLE_USER));
+    }
 
     @Override
     public boolean delete(int id) {
@@ -37,7 +47,7 @@ public class MockUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         LOG.info("getAll");
-        return Collections.emptyList();
+        return users;
     }
 
     @Override

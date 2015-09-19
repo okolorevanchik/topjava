@@ -8,10 +8,10 @@ import ru.javawebinar.topjava.repository.UserMealRepository;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * GKislin
@@ -28,9 +28,9 @@ public class InMemoryUserMealRepository implements UserMealRepository {
         save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500), 1);
         save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000), 1);
         save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500), 1);
-        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000), 1);
-        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500), 1);
-        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510), 1);
+        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000), 2);
+        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500), 2);
+        save(new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510), 3);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class InMemoryUserMealRepository implements UserMealRepository {
             userMeal.setId(counter.incrementAndGet());
             userMeal.setUserId(userId);
         } else {
-            if (userMeal.getUserId() != userId)
+            if (get(userMeal.getId(), userId) == null)
                 return null;
         }
         repository.put(userMeal.getId(), userMeal);
@@ -75,15 +75,9 @@ public class InMemoryUserMealRepository implements UserMealRepository {
     @Override
     public Collection<UserMeal> getAll(int userId) {
         LOG.info("getAll");
-
-        Collection<UserMeal> collection = repository.values();
-        boolean isContains = collection.stream()
-                .allMatch(userMeal -> userMeal.getUserId() == userId);
-
-        if (isContains)
-            return collection;
-
-        return Collections.emptyList();
+        return repository.values().stream()
+                .filter(userMeal -> userMeal.getUserId() == userId)
+                .collect(Collectors.toList());
     }
 }
 
