@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.exception.ExceptionUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -30,8 +31,8 @@ public class UserMealServiceImpl implements UserMealService {
     }
 
     @Override
-    public Collection<UserMeal> getAll(int userId) {
-        return repository.getAll(userId);
+    public Collection<UserMeal> getAll(int userId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return repository.getAll(userId, startDateTime, endDateTime);
     }
 
     @Override

@@ -1,3 +1,4 @@
+<%--@elvariable id="userId" type="java.lang.Integer"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -9,13 +10,14 @@
 
 <h3>User list</h3>
 
-<h5>Id текущего пользователя: ${userId}</h5>
+<h5>Id current user: ${userId}</h5>
 
 <form action="users" method="post">
     <p>
         <label>
             <select name="id">
                 <option>--Select User--</option>
+                <%--@elvariable id="users" type="java.util.List"--%>
                 <c:forEach items="${users}" var="user">
                     <jsp:useBean id="user" scope="page" type="ru.javawebinar.topjava.model.User"/>
                     <option value="${user.id}">${user.name}</option>

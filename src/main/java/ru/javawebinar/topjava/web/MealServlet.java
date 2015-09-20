@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -51,9 +53,15 @@ public class MealServlet extends HttpServlet {
 
         if (action == null) {
             LOG.info("getAll");
+            request.setAttribute("mealList", UserMealsUtil.getWithExceeded(
+                    restController.getAll(userId, LocalDateTime.MIN, LocalDateTime.MAX), 2000));
+            request.getRequestDispatcher("mealList.jsp").forward(request, response);
+        } else if (action.equals("filter")) {
+            LocalDateTime startDateTime = getDateTime(request, "startDate", "startTime", LocalDate.MIN, LocalTime.MIN);
+            LocalDateTime endDateTime = getDateTime(request, "endDate", "endTime", LocalDate.MAX, LocalTime.MAX);
             request.setAttribute("mealList",
-                    UserMealsUtil.getWithExceeded(restController.getAll(userId), 2000));
-            request.getRequestDispatcher("/mealList.jsp").forward(request, response);
+                    UserMealsUtil.getWithExceeded(restController.getAll(userId, startDateTime, endDateTime), 2000));
+            request.getRequestDispatcher("mealList.jsp").forward(request, response);
         } else if (action.equals("delete")) {
             int id = getId(request);
             LOG.info("Delete {}", id);
@@ -71,5 +79,17 @@ public class MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
+    }
+
+    private LocalDateTime getDateTime(HttpServletRequest request,
+                                      String dateParameter, String timeParameter,
+                                      LocalDate nominalDate, LocalTime nominalTime) {
+        String date = request.getParameter(dateParameter);
+        String time = request.getParameter(timeParameter);
+
+        LocalDate localDate = (date.isEmpty()) ? nominalDate : LocalDate.parse(date);
+        LocalTime localTime = (time.isEmpty()) ? nominalTime : LocalTime.parse(time);
+
+        return LocalDateTime.of(localDate, localTime);
     }
 }

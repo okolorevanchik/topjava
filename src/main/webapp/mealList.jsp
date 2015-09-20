@@ -22,6 +22,36 @@
     <h3>Meal list</h3>
     <a href="meals?action=create">Add Meal</a>
     <hr>
+
+    <form action="meals" method="get">
+        <input type="hidden" name="action" value="filter">
+        <table style="text-align: left; width: 25%">
+            <tr>
+                <th>Start date</th>
+                <th></th>
+                <th>Start time</th>
+            </tr>
+            <tr>
+                <td><label><input type="date" name="startDate"/></label></td>
+                <td></td>
+                <td><label><input type="time" name="startTime"/></label></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th>End date</th>
+                <th></th>
+                <th>End time</th>
+            </tr>
+            <tr>
+                <td><label><input type="date" name="endDate"/></label></td>
+                <td></td>
+                <td><label><input type="time" name="endTime"/></label></td>
+            </tr>
+        </table>
+        <button type="submit">Filter</button>
+    </form>
+    <br>
+
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -32,6 +62,7 @@
             <th></th>
         </tr>
         </thead>
+        <%--@elvariable id="mealList" type="java.util.List"--%>
         <c:forEach items="${mealList}" var="meal">
             <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.UserMealWithExceed"/>
             <tr class="${meal.exceed ? 'exceeded' : 'normal'}">

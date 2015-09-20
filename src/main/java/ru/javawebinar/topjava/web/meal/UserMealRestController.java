@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealService;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -36,8 +37,8 @@ public class UserMealRestController {
         }
     }
 
-    public Collection<UserMeal> getAll(int userId) {
-        return service.getAll(userId);
+    public Collection<UserMeal> getAll(int userId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return service.getAll(userId, startDateTime, endDateTime);
     }
 
     public UserMeal save(UserMeal userMeal, int userId) {
