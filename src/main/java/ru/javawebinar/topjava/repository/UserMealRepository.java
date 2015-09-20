@@ -10,6 +10,7 @@ import java.util.Collection;
  * 06.03.2015.
  */
 public interface UserMealRepository {
+
     UserMeal save(UserMeal userMeal, int userId);
 
     boolean delete(int id, int userId);

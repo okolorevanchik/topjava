@@ -26,7 +26,7 @@ public class UserMealsUtil {
         Map<LocalDate, Integer> caloriesSumByDate = mealList
                 .stream()
                 .collect(Collectors.groupingBy(um -> um.getDateTime().toLocalDate(),
-                Collectors.summingInt(UserMeal::getCalories)));
+                        Collectors.summingInt(UserMeal::getCalories)));
 
         return mealList.stream()
                 .filter(um -> TimeUtil.isBetween(um.getDateTime().toLocalTime(), startTime, endTime))

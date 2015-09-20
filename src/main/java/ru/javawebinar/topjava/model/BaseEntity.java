@@ -7,6 +7,7 @@ import ru.javawebinar.topjava.LoggerWrapper;
  * Date: 22.08.2014
  */
 public class BaseEntity {
+
     protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 
     protected Integer id;

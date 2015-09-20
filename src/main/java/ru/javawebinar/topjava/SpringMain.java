@@ -17,6 +17,7 @@ import java.util.Arrays;
  * Date: 22.08.2014
  */
 public class SpringMain {
+
     public static void main(String[] args) {
         // java 7 Automatic resource management
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
@@ -37,12 +38,12 @@ public class SpringMain {
             System.out.println("\nactual userMeals.toString(): " + userMealRestController.get(2, 1) + "\n");
             System.out.println("\nactual null: " + userMealRestController.get(2, 4) + "\n");
 
-            LocalDateTime start = LocalDateTime.of(2015, Month.MAY, 30, 10, 0);
-            LocalDateTime end = LocalDateTime.of(2015, Month.MAY, 30, 20, 0);
-            System.out.println("\nactual collection of objects UserMeals: " +
-                    userMealRestController.getAll(1, start, end) + "\n");
-            System.out.println("\nactual empty collection: " +
-                    userMealRestController.getAll(4, start, end) + "\n");
+            LocalDateTime start = LocalDateTime.of(2015, Month.SEPTEMBER, 17, 10, 0);
+            LocalDateTime end = LocalDateTime.of(2015, Month.SEPTEMBER, 17, 20, 0);
+            System.out.println("\nactual collection of objects UserMeals: " + userMealRestController
+                    .getAll(1, start, end) + "\n");
+            System.out.println("\nactual empty collection: " + userMealRestController
+                    .getAll(4, start, end) + "\n");
 
         }
     }

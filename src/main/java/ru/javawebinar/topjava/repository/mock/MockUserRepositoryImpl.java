@@ -15,6 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @Repository
 public class MockUserRepositoryImpl implements UserRepository {
+
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepositoryImpl.class);
 
     private List<User> users = new CopyOnWriteArrayList<>();

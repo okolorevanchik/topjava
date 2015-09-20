@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
  */
 @Repository
 public class InMemoryUserMealRepository implements UserMealRepository {
+
     private Map<Integer, UserMeal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
@@ -50,9 +51,8 @@ public class InMemoryUserMealRepository implements UserMealRepository {
         if (userMeal.isNew()) {
             userMeal.setId(counter.incrementAndGet());
             userMeal.setUserId(userId);
-        } else {
-            if (get(userMeal.getId(), userId) == null)
-                return null;
+        } else if (get(userMeal.getId(), userId) == null) {
+            return null;
         }
         repository.put(userMeal.getId(), userMeal);
         return userMeal;
@@ -75,7 +75,6 @@ public class InMemoryUserMealRepository implements UserMealRepository {
         LOG.info("get" + id);
 
         UserMeal userMeal = repository.get(id);
-
         if (userMeal.getUserId() == userId)
             return userMeal;
 

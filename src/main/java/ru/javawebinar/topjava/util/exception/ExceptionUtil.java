@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.LoggerWrapper;
  * Date: 14.05.2014
  */
 public class ExceptionUtil {
+
     private static final LoggerWrapper LOG = LoggerWrapper.get(ExceptionUtil.class);
 
     public static void check(boolean found, int id) {

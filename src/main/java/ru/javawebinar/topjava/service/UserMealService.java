@@ -11,6 +11,7 @@ import java.util.Collection;
  * 15.06.2015.
  */
 public interface UserMealService {
+
     UserMeal save(UserMeal userMeal, int userId);
 
     void delete(int id, int userId) throws NotFoundException;

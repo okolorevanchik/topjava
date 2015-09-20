@@ -20,6 +20,7 @@ import java.util.List;
  * Date: 19.08.2014
  */
 public class UserServlet extends HttpServlet {
+
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);
 
     private AdminRestController restController;

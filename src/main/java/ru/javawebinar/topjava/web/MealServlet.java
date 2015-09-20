@@ -24,6 +24,7 @@ import java.util.Objects;
  * Date: 19.08.2014
  */
 public class MealServlet extends HttpServlet {
+
     private static final LoggerWrapper LOG = LoggerWrapper.get(MealServlet.class);
 
     private UserMealRestController restController;
@@ -57,8 +58,8 @@ public class MealServlet extends HttpServlet {
                     restController.getAll(userId, LocalDateTime.MIN, LocalDateTime.MAX), 2000));
             request.getRequestDispatcher("mealList.jsp").forward(request, response);
         } else if (action.equals("filter")) {
-            LocalDateTime startDateTime = getDateTime(request, "startDate", "startTime", LocalDate.MIN, LocalTime.MIN);
-            LocalDateTime endDateTime = getDateTime(request, "endDate", "endTime", LocalDate.MAX, LocalTime.MAX);
+            LocalDateTime startDateTime = getDateTime(request, "startDate", "startTime", LocalDateTime.MIN);
+            LocalDateTime endDateTime = getDateTime(request, "endDate", "endTime", LocalDateTime.MAX);
             request.setAttribute("mealList",
                     UserMealsUtil.getWithExceeded(restController.getAll(userId, startDateTime, endDateTime), 2000));
             request.getRequestDispatcher("mealList.jsp").forward(request, response);
@@ -83,12 +84,12 @@ public class MealServlet extends HttpServlet {
 
     private LocalDateTime getDateTime(HttpServletRequest request,
                                       String dateParameter, String timeParameter,
-                                      LocalDate nominalDate, LocalTime nominalTime) {
+                                      LocalDateTime nominal) {
         String date = request.getParameter(dateParameter);
         String time = request.getParameter(timeParameter);
 
-        LocalDate localDate = (date.isEmpty()) ? nominalDate : LocalDate.parse(date);
-        LocalTime localTime = (time.isEmpty()) ? nominalTime : LocalTime.parse(time);
+        LocalDate localDate = (date.isEmpty()) ? nominal.toLocalDate() : LocalDate.parse(date);
+        LocalTime localTime = (time.isEmpty()) ? nominal.toLocalTime() : LocalTime.parse(time);
 
         return LocalDateTime.of(localDate, localTime);
     }
