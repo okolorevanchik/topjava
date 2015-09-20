@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.web;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.context.ConfigurableApplicationContext;
+import ru.javawebinar.topjava.ApplicationContextProvider;
 import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.LoggerWrapper;
 import ru.javawebinar.topjava.model.UserMeal;
@@ -32,8 +32,9 @@ public class MealServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        restController = applicationContext.getBean(UserMealRestController.class);
+        ConfigurableApplicationContext appCtx = ApplicationContextProvider.getAppCtx();
+        restController = appCtx.getBean(UserMealRestController.class);
+        ApplicationContextProvider.closeAppCtx();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
