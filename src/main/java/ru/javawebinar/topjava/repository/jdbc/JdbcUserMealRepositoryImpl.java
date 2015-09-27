@@ -45,7 +45,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     public UserMeal save(UserMeal userMeal, int userId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", userMeal.getId())
-                .addValue("date_time", Timestamp.valueOf(userMeal.getDateTime()))
+                .addValue("dateTime", Timestamp.valueOf(userMeal.getDateTime()))
                 .addValue("description", userMeal.getDescription())
                 .addValue("calories", userMeal.getCalories())
                 .addValue("userId", userId);

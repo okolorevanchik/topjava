@@ -15,17 +15,13 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
  */
 public class MealTestData {
 
-    public static final int MEAL_ID = START_SEQ + 2;
+    public static final int USER_ID = START_SEQ;
+    public static final int ADMIN_ID = START_SEQ + 1;
+    public static final int USER_MEAL_ID = START_SEQ + 2;
+    public static final int ADMIN_MEAL_ID = START_SEQ + 3;
 
-    public static final UserMeal um1 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
-    public static final UserMeal um2 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000);
-    public static final UserMeal um3 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500);
-    public static final UserMeal um4 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000);
-    public static final UserMeal um5 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500);
-    public static final UserMeal um6 = new UserMeal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510);
-
-    public static final UserMeal aum1 = new UserMeal(LocalDateTime.of(2015, Month.JUNE, 1, 14, 0), "Админ ланч", 510);
-    public static final UserMeal aum2 = new UserMeal(LocalDateTime.of(2015, Month.JUNE, 1, 21, 0), "Админ ужин ", 510);
+    public static final UserMeal USER_MEAL = new UserMeal(USER_MEAL_ID, LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500);
+    public static final UserMeal ADMIN_MEAL = new UserMeal(ADMIN_MEAL_ID, LocalDateTime.of(2015, Month.JUNE, 1, 14, 0), "Админ ланч", 510);
 
     public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(UserMeal::toString);
 
