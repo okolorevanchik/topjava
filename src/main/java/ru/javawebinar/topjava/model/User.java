@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.model;
 
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,6 +22,8 @@ public class User extends NamedEntity {
     protected Date registered = new Date();
 
     protected Set<Role> roles;
+
+    protected List<UserMeal> userMeals;
 
     protected int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
@@ -88,15 +91,24 @@ public class User extends NamedEntity {
         return password;
     }
 
+    public List<UserMeal> getUserMeals() {
+        return userMeals;
+    }
+
+    public void setUserMeals(List<UserMeal> userMeals) {
+        this.userMeals = userMeals;
+    }
+
     @Override
     public String toString() {
-        return "User (" +
-                "id=" + id +
-                ", email=" + email +
-                ", name=" + name +
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", registered=" + registered +
                 ", roles=" + roles +
+                ", userMeals=" + userMeals +
                 ", caloriesPerDay=" + caloriesPerDay +
-                ')';
+                '}';
     }
 }
