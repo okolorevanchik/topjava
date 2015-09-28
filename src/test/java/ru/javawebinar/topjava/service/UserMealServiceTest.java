@@ -10,12 +10,10 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.DbPopulator;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -107,28 +105,29 @@ public class UserMealServiceTest {
 
     @Test
     public void testUpdate() {
-        TestUserMeal updated = new TestUserMeal(ADMIN_MEAL);
+        UserMeal updated = new UserMeal(ADMIN_MEAL);
         updated.setCalories(2500);
         updated.setDescription("Пицца");
-        updated.setDateTime(Timestamp.valueOf(newDateTime));
-        service.update(updated.asMeal(), ADMIN_ID);
+        updated.setDateTime(newDateTime);
+        service.update(updated, ADMIN_ID);
         MATCHER.assertEquals(updated, service.get(ADMIN_MEAL_ID, ADMIN_ID));
     }
 
     @Test(expected = NotFoundException.class)
     public void testUpdateNotFound() {
-        TestUserMeal updated = new TestUserMeal(ADMIN_MEAL);
+        UserMeal updated = new UserMeal(ADMIN_MEAL);
         updated.setCalories(2500);
         updated.setDescription("Пицца");
-        updated.setDateTime(Timestamp.valueOf(newDateTime));
-        service.update(updated.asMeal(), USER_ID);
+        updated.setDateTime(newDateTime);
+        service.update(updated, USER_ID);
     }
 
     @Test
     public void testSave() {
-        TestUserMeal saved = new TestUserMeal(newDateTime, "Курочка", 1300);
+        UserMeal saved = new UserMeal(newDateTime, "Курочка", 1300);
         UserMeal userMeal = service.save(saved, USER_ID);
-        saved.setId(userMeal.getId());
-        MATCHER.assertCollectionEquals(Arrays.asList(USER_MEAL, saved), service.getAll(USER_ID));
+        int mealId =  userMeal.getId();
+        saved.setId(mealId);
+        MATCHER.assertEquals(saved, service.get(mealId, USER_ID));
     }
 }

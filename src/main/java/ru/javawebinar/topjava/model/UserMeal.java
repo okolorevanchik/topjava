@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -53,8 +52,8 @@ public class UserMeal extends BaseEntity {
         return id;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime.toLocalDateTime();
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setDescription(String description) {
