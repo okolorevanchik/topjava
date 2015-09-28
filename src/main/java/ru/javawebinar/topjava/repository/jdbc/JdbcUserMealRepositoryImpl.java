@@ -24,7 +24,6 @@ import java.util.List;
 @Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
-    //private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
     private final static RowMapper<UserMeal> MAPPER = new UserMealRowMapper();
     @Autowired
     private JdbcTemplate jdbcTemplate;
