@@ -12,9 +12,12 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * User: gkislin
@@ -24,7 +27,15 @@ import java.util.List;
 @Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
-    private final static RowMapper<UserMeal> MAPPER = new UserMealRowMapper();
+    private final static RowMapper<UserMeal> MAPPER = (rs, i) -> {
+        UserMeal userMeal = new UserMeal();
+        userMeal.setId(rs.getInt("id"));
+        userMeal.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+        userMeal.setDescription(rs.getString("description"));
+        userMeal.setCalories(rs.getInt("calories"));
+        return userMeal;
+    };
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
